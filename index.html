@@ -5,6 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tech Live Clock Wallpaper</title>
     <style>
+        @font-face {
+            font-family: 'Anurati';
+            src: url('Anurati-Regular.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* Đổi 'number.otf' thành đúng tên file font số của bạn */
+        @font-face {
+            font-family: 'NumberFont';
+            src: url('number.otf') format('opentype'); 
+            font-weight: normal;
+            font-style: normal;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -15,8 +30,7 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: #0f172a; 
+            background: #1e293b; 
             color: #ffffff;
         }
 
@@ -26,12 +40,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            /* Trỏ trực tiếp đến file ảnh mới của bạn */
+            /* Nếu ảnh của bạn là .png thì sửa 'background.jpg' thành tên file .png nhé */
             background: url('background.jpg') no-repeat center center/cover;
             z-index: 1;
         }
 
-        /* Lớp phủ làm tối cực nhẹ để chữ nổi bật trên nền trời sáng */
         .overlay {
             position: absolute;
             top: 0;
@@ -42,7 +55,6 @@
             z-index: 2;
         }
 
-        /* Đặt đồng hồ dịch lên cao hơn (vùng bầu trời xanh phía trên) */
         .clock-container {
             position: absolute;
             top: 22%;
@@ -54,32 +66,30 @@
             padding: 0 10px;
         }
 
-        /* 1. Dòng Thứ */
         #day-of-week {
-            font-size: 2.6rem;
-            font-weight: 900;
+            font-family: 'Anurati', sans-serif;
+            font-size: 3.75rem;
+            font-weight: normal;
             letter-spacing: 4px;
             text-transform: uppercase;
             color: #ffffff;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
         }
 
-        /* 2. Dòng Ngày Tháng Năm */
         #date {
-            font-size: 1.1rem;
-            font-weight: 700;
+            font-family: 'Anurati', sans-serif;
+            font-size: 1.5rem;
             color: #f1f5f9;
             letter-spacing: 3px;
             text-transform: uppercase;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
         }
 
-        /* 3. Dòng Giờ, Phút, Giây */
         #time-wrapper {
-            font-size: 1.4rem;
-            font-weight: 700;
+            font-family: 'NumberFont', sans-serif;
+            font-size: 2.1rem;
             color: #ffffff;
             letter-spacing: 2px;
             font-variant-numeric: tabular-nums;
@@ -102,18 +112,14 @@
         function updateClock() {
             try {
                 const now = new Date();
-
-                // 1. Thứ
                 const days = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
                 document.getElementById('day-of-week').textContent = days[now.getDay()];
 
-                // 2. Giờ, phút, giây
                 const hours = String(now.getHours()).padStart(2, '0');
                 const minutes = String(now.getMinutes()).padStart(2, '0');
                 const seconds = String(now.getSeconds()).padStart(2, '0');
                 document.getElementById('time').textContent = `${hours}:${minutes}:${seconds}`;
 
-                // 3. Ngày, tháng, năm
                 const dateNum = now.getDate();
                 const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
                 const monthName = months[now.getMonth()];
